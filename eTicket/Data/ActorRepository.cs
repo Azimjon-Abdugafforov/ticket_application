@@ -11,7 +11,8 @@ namespace eTicket.Data
     {
         IEnumerable<Actor> GetActors();
         Actor GetActorById(int Id);
-        void InsertActor();
+        void InsertActor(Actor Actor);
+        void UpdateActor(Actor Actor);
         void DeleteActor(int Id);
         void Save();
     }
@@ -30,14 +31,20 @@ namespace eTicket.Data
 
         public Actor GetActorById(int Id)
         {
-            throw new NotImplementedException();
+            return this.ctx.Actors.Find(Id);
         }
 
         public IEnumerable<Actor> GetActors() => this.ctx.Actors.ToList();
 
-        public void InsertActor()
+        public void InsertActor(Actor Actor)
         {
-            throw new NotImplementedException();
+            this.ctx.Actors.Add(Actor);
+            this.Save();
+        }
+        public void UpdateActor(Actor Actor)
+        {
+            this.ctx.Entry(Actor).State = System.Data.Entity.EntityState.Modified;
+            this.Save();
         }
 
         public void Save()

@@ -1,4 +1,5 @@
 ﻿using eTicket.Data;
+using eTicket.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -37,22 +38,22 @@ namespace eTicket.Controllers
         // POST: ActorController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Actor Actor)
         {
-            try
+
+            if(!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                return View(Actor);
             }
-            catch
-            {
-                return View();
-            }
+            this.repo.InsertActor(Actor);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: ActorController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Actor Actor = this.repo.GetActorById(id);
+            return View(Actor);
         }
 
         // POST: ActorController/Edit/5
@@ -62,7 +63,14 @@ namespace eTicket.Controllers
         {
             try
             {
+                Actor Actor = repo.GetActorById(id);
+                Actor.FullName = collection["FullName"];
+                Actor.Bio = collection["Bio"];
+                Actor.ProfilePictureURL = collection["ProfilePictureURL"];
+                repo.UpdateActor(Actor);
+
                 return RedirectToAction(nameof(Index));
+                
             }
             catch
             {
