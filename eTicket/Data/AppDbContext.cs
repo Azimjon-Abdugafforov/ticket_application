@@ -14,5 +14,7 @@ namespace eTicket.Data
         {
             this.Database.Connection.ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\acer\\source\\repos\\application\\db\\dataBase.mdf;Integrated Security=True;Connect Timeout=30";
         }
+
+        public DbSet<Actor> Actors { get; set; }
     }
 }
