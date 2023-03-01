@@ -16,6 +16,7 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
+
                 @Html.DisplayNameFor(model => model.ProfilePictureURL)
             </th>
             <th>
@@ -34,7 +35,8 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProfilePictureURL)
+                <img src="@Html.DisplayFor(modelItem => item.ProfilePictureURL)" class="img-fluid img-thumbnail" >
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FullName)
