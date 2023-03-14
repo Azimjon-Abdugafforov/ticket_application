@@ -1,59 +1,84 @@
 ﻿@model IEnumerable<eTicket.Models.Ticket>
 
+
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 col-xs-6 border-primary mb-3">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-info">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @item.Title
+                                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                    {
+                                        <a class="text-white float-right" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
+                                    }
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="data:image/jpeg;base64,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" width="100%" alt="@item.Title">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p class="card-text">@item.Description</p>
+                            <p class="card-text"><b>Cinema: </b>@item.CreatedAt</p>
+                            <p class="card-text"><b>Category: </b>@item.CreatedAt</p>
+                            <p class="card-text"><b>Start Date: </b>@item.CreatedAt.ToString("dd MMM yy")</p>
+                            <p class="card-text"><b>End Date: </b>@item.CreatedAt.ToString("dd MMM yy")</p>
+                            <p class="card-text ">
+                                <b>Status: </b>
+                                @if (DateTime.Now >= item.CreatedAt && DateTime.Now <= item.CreatedAt)
+                                {
+                                    <span class="badge bg-success text-white">AVAILABLE</span>
+                                }
+                                else if (DateTime.Now > item.CreatedAt)
+                                {
+                                    <span class="badge bg-danger text-white">EXPIRED</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-primary text-white">UPCOMING</span>
+                                }
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer ">
+                            <p class="card-text">
+                                <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.Id">
+                                    <i class="bi bi-eye-fill"></i> Show Details
+                                </a>
+                                <a class="btn btn-success text-white @((DateTime.Now > item.CreatedAt) ? "disabled" : "")"
+                                   asp-controller="Orders"
+                                   asp-action="AddItemToShoppingCart"
+                                   asp-route-id="@item.Id">
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
