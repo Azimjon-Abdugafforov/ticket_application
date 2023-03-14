@@ -16,5 +16,8 @@ namespace eTicket.Data
         }
 
         public DbSet<Actor> Actors { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+
+        
     }
 }

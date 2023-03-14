@@ -34,7 +34,7 @@ namespace eTicket.Data
             return this.ctx.Actors.Find(Id);
         }
 
-        public IEnumerable<Actor> GetActors() => this.ctx.Actors.ToList();
+        public IEnumerable<Actor> GetActors() => ctx.Actors.ToList();
 
         public void InsertActor(Actor Actor)
         {
